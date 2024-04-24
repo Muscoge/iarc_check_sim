@@ -1,13 +1,28 @@
-# IACR Check Tool implementation in R (iarc_check_sim)
+# Russian Regestries Data Processing in R
 
-The functions helps with Data Preprocessing by imitating the behavior of IACR Check for data from cancer regestries. The current implementation is specified to preproccesed data from Russian cancer registries. 
+The repo contains workflow of processing and checking russian cancer regestries data. For processing simple operations of filtering and renaming are done. For checking IACR CHeck Tool implementation is done. More detailed description of it is presented.  
+
+The structure of worklow is the following:
+
+**1_read_and_name_the_data.R**
+The script read raw data and translates variable names and values. In addition some simple operation with variables are done: split of ICD-10 codes, determination of stage, calculation of age, filter the only malignant behaviour and etc.    
+
+**2_converse_the_data.R**
+The script checks for ICD-O-2 errors in coding of diagnosis and converse data. The flow of conversion: if morph variable is NA then conversion form ICD-10 to ICD-O-2, else from ICD-O-2 to ICD-O-3 and from ICD-O-3 back to ICD-10. 
+
+**3_fix_the_data.R**
+The script emulate IARC Check Tool and fixes the errors in data, according to IARC recommendations. 
+
+## IACR Check Tool implementation's description
+
+The functions (functions_for_iacr_mp and functions_for_check) helps with Data Preprocessing by imitating the behavior of IACR Check for data from cancer regestries. The current implementation is specified to preproccesed data from Russian cancer registries. 
 
 Requirements for a proper functioning:
 - ICD-O-3 code should be separated into columns 
 - "topo_Cxxx", "topo_Cxxx", "morph", "behav_icdo3", "gr_icdo3"
 - Columns "morph", "behav_icdo3", "gr_icdo3" should have type double
 
-## The functions implemented to a file:
+### The functions implemented to a files:
 1. **add_histology_families**
    Adding  histology family based on 'morph' column.
    
